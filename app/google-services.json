@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "118001077544",
+    "project_id": "recipe-bowl-dda9f",
+    "storage_bucket": "recipe-bowl-dda9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118001077544:android:8330a27f1a06c2323a541d",
+        "android_client_info": {
+          "package_name": "com.example.recipebowl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118001077544-utnvjpf7h7iocepi3tap03ekvbdmh1hk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlZiIm5xgjAZAZx1P4RWSRcxxFcn9mBJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118001077544-utnvjpf7h7iocepi3tap03ekvbdmh1hk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
