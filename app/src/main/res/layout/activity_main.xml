@@ -19,6 +19,7 @@
         android:id="@+id/emailText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
         android:hint="E-Mail"
         app:layout_constraintBottom_toTopOf="@id/passwordText"
         app:layout_constraintEnd_toEndOf="parent"
