@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Recipe Bowl</string>
+    <string name="register_while_logged_in">You must logout before trying to register</string>
+    <string name="register_failure">Registration failed</string>
+    <string name="logged_in">You are currently signed in</string>
+    <string name="not_logged_in">Sign in above</string>
+    <string name="login_failure">Login failed</string>
 </resources>
