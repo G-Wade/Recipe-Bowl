@@ -1,13 +1,16 @@
 package com.example.recipebowl
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
@@ -28,46 +31,74 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val mainToolbar = findViewById<Toolbar>(R.id.main_toolbar)
+        setSupportActionBar(mainToolbar)
+
         emailText = findViewById(R.id.emailText)
         passwordText = findViewById(R.id.passwordText)
         loginBtn = findViewById(R.id.loginBtn)
+        regBtn = findViewById(R.id.registerBtn)
+        logoutBtn = findViewById(R.id.logoutBtn)
 
         loginBtn.setOnClickListener({v -> loginClick(v)})
+        regBtn.setOnClickListener({v -> registerClick(v)})
+        logoutBtn.setOnClickListener({v -> logoutClick(v)})
 
         update()
     }
 
     //registration action
     private fun registerClick(view: View) {
-        if (mAuth.currentUser != null) {
-            displayMessage(view, getString(R.string.register_while_logged_in))
-        } else {
-            mAuth.createUserWithEmailAndPassword(emailText.text.toString(),
-                passwordText.text.toString()).addOnCompleteListener(this) {task ->
-                if (task.isSuccessful) {
-                    closeKeyBoard()
-                    update()
-                } else {
-                    closeKeyBoard()
-                    displayMessage(loginBtn, getString(R.string.register_failure))
+        try {
+            if (mAuth.currentUser != null) {
+                displayMessage(view, getString(R.string.register_while_logged_in))
+            } else {
+                mAuth.createUserWithEmailAndPassword(emailText.text.toString(),
+                    passwordText.text.toString()).addOnCompleteListener(this) {task ->
+                    if (task.isSuccessful) {
+                        closeKeyBoard()
+                        try {
+                            val newIntent = Intent(this, HomeActivity::class.java)
+                            startActivity(newIntent)
+                        } catch (e : java.lang.Exception) {
+                            Log.i("Activities", "Null")
+                        }
+                    } else {
+                        closeKeyBoard()
+                        displayMessage(view, getString(R.string.register_failure))
+                    }
                 }
             }
+        } catch (e : java.lang.IllegalArgumentException) {
+            displayMessage(view, getString(R.string.empty_field))
+            closeKeyBoard()
         }
+
     }
 
     //login the user
     fun loginClick(view: View) {
-        mAuth.signInWithEmailAndPassword(emailText.text.toString(),
-        passwordText.text.toString()).addOnCompleteListener(this) {task ->
-            if (task.isSuccessful) {
-                closeKeyBoard()
-                update()
-            } else {
-                closeKeyBoard()
-                displayMessage(loginBtn, getString(R.string.login_failure))
+        try {
+            mAuth.signInWithEmailAndPassword(emailText.text.toString(),
+                passwordText.text.toString()).addOnCompleteListener(this) {task ->
+                if (task.isSuccessful) {
+                    closeKeyBoard()
+                    displayMessage(view, getString(R.string.login_success))
+                    try {
+                        val newIntent = Intent(this, HomeActivity::class.java)
+                        startActivity(newIntent)
+                    } catch (e : java.lang.Exception) {
+                        Log.i("Activities", "Null")
+                    }
+                } else {
+                    closeKeyBoard()
+                    displayMessage(view, getString(R.string.login_failure))
+                }
             }
+        } catch (e : java.lang.IllegalArgumentException) {
+            displayMessage(view, getString(R.string.empty_field))
+            closeKeyBoard()
         }
-
     }
 
 
@@ -75,7 +106,8 @@ class MainActivity : AppCompatActivity() {
     private fun logoutClick(view: View) {
         currentUser = mAuth.currentUser
         mAuth.signOut()
-        update()
+        closeKeyBoard()
+        displayMessage(view, getString(R.string.logout_success))
     }
 
     //sign out on application stopping

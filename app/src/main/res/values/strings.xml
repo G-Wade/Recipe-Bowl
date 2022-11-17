@@ -4,5 +4,17 @@
     <string name="register_failure">Registration failed</string>
     <string name="logged_in">You are currently signed in</string>
     <string name="not_logged_in">Sign in above</string>
+    <string name="login_success">Logged in successfully</string>
+    <string name="logout_success">Logged out successfully</string>
     <string name="login_failure">Login failed</string>
+    <string name="empty_field">A required field is empty</string>
+    <string name="login">LOGIN</string>
+    <string name="register">REGISTER</string>
+    <string name="logout">LOGOUT</string>
+    <string name="password_hint">Password</string>
+    <string name="e_mail_hint">E-Mail</string>
+    
+    <color name="seashell">#FDF3ED</color>
+    <color name="orange_soda">#F55C3D</color>
+    <color name="tan_crayola">#DA9A6C</color>
 </resources>
