@@ -13,8 +13,5 @@
     <string name="logout">LOGOUT</string>
     <string name="password_hint">Password</string>
     <string name="e_mail_hint">E-Mail</string>
-    
-    <color name="seashell">#FDF3ED</color>
-    <color name="orange_soda">#F55C3D</color>
-    <color name="tan_crayola">#DA9A6C</color>
+
 </resources>
