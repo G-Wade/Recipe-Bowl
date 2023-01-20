@@ -21,11 +21,11 @@ class MainActivity : AppCompatActivity() {
     private var currentUser = mAuth.currentUser
 
     //UI elements
-    lateinit var emailText : EditText
-    lateinit var passwordText : EditText
-    lateinit var loginBtn : Button
-    lateinit var regBtn : Button
-    lateinit var logoutBtn : Button
+    private lateinit var emailText : EditText
+    private lateinit var passwordText : EditText
+    private lateinit var loginBtn : Button
+    private lateinit var regBtn : Button
+    private lateinit var logoutBtn : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +40,9 @@ class MainActivity : AppCompatActivity() {
         regBtn = findViewById(R.id.registerBtn)
         logoutBtn = findViewById(R.id.logoutBtn)
 
-        loginBtn.setOnClickListener({v -> loginClick(v)})
-        regBtn.setOnClickListener({v -> registerClick(v)})
-        logoutBtn.setOnClickListener({v -> logoutClick(v)})
+        loginBtn.setOnClickListener{v -> loginClick(v)}
+        regBtn.setOnClickListener{v -> registerClick(v)}
+        logoutBtn.setOnClickListener{v -> logoutClick(v)}
 
         update()
     }
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //login the user
-    fun loginClick(view: View) {
+    private fun loginClick(view: View) {
         try {
             mAuth.signInWithEmailAndPassword(emailText.text.toString(),
                 passwordText.text.toString()).addOnCompleteListener(this) {task ->
