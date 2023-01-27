@@ -42,4 +42,33 @@
         app:layout_constraintTop_toBottomOf="@+id/Tabs">
     </androidx.appcompat.widget.AppCompatButton>
 
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext1"
+        app:layout_constraintTop_toBottomOf="@+id/Button">
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext2"
+        app:layout_constraintTop_toBottomOf="@+id/edittext1">
+    </androidx.appcompat.widget.AppCompatEditText>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editbutton"
+        android:onClick="dataTest"
+        app:layout_constraintTop_toBottomOf="@+id/edittext2">
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/texttest"
+        app:layout_constraintTop_toBottomOf="@id/editbutton">
+    </androidx.appcompat.widget.AppCompatTextView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
