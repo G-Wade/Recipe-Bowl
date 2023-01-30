@@ -14,11 +14,12 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class HomeActivity : AppCompatActivity() {
 
     private val mAuth = FirebaseAuth.getInstance()
-    private val currentUser = mAuth.currentUser
+    private lateinit var currentUser : FirebaseUser
 
     private val db = Firebase.firestore
     private val docRef = FirebaseFirestore.getInstance().document("Users/Recipe")
@@ -28,6 +29,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        currentUser = mAuth.currentUser
 
         val Button = findViewById<Button>(R.id.Button)
 
