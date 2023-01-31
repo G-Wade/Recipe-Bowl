@@ -1,13 +1,14 @@
 package com.example.recipebowl
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
@@ -19,8 +20,20 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var passwordText : EditText
     private lateinit var regBtn : Button
     private lateinit var logoutBtn : Button
+    private lateinit var loginText : TextView
 
     private lateinit var auth : FirebaseAuth
+
+    override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        if(currentUser != null){
+            val newIntent = Intent(this, HomeActivity::class.java)
+            startActivity(newIntent)
+            finish()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,13 +48,15 @@ class RegisterActivity : AppCompatActivity() {
         passwordText = findViewById(R.id.passwordText)
         regBtn = findViewById(R.id.registerBtn)
         logoutBtn = findViewById(R.id.logoutBtn)
+        loginText = findViewById(R.id.loginLink)
 
-        regBtn.setOnClickListener{v -> registerClick(v)}
+        regBtn.setOnClickListener{v -> registerClick()}
+        loginText.setOnClickListener{v -> loginLink()}
     }
 
-    private fun registerClick(view : View) {
-        var email = emailText.text.toString()
-        var password = passwordText.text.toString()
+    private fun registerClick() {
+        val email = emailText.text.toString()
+        val password = passwordText.text.toString()
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Enter Email", Toast.LENGTH_SHORT).show()
@@ -64,5 +79,11 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun loginLink() {
+        val newIntent = Intent(applicationContext, LoginActivity::class.java)
+        startActivity(newIntent)
+        finish()
     }
 }

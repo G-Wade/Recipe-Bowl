@@ -13,5 +13,7 @@
     <string name="logout">LOGOUT</string>
     <string name="password_hint">Password</string>
     <string name="e_mail_hint">E-Mail</string>
+    <string name="login_click">Click here to login</string>
+    <string name="create_account">Click here to create an account</string>
 
 </resources>
