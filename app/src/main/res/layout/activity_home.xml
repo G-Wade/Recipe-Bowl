@@ -15,7 +15,7 @@
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:id="@+id/Tabs"
+        android:id="@+id/tabs"
         app:layout_constraintTop_toBottomOf="@+id/main_toolbar"
         android:background="@color/tan_crayola"
         app:tabPadding="2dp"
@@ -35,40 +35,21 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Button"
-        app:layout_constraintTop_toBottomOf="@+id/Tabs">
-    </androidx.appcompat.widget.AppCompatButton>
+        android:id="@+id/homeLinearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/tabs">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edittext1"
-        app:layout_constraintTop_toBottomOf="@+id/Button">
-    </androidx.appcompat.widget.AppCompatEditText>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/homeRecycler"
+            android:scrollbars="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/texttest">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edittext2"
-        app:layout_constraintTop_toBottomOf="@+id/edittext1">
-    </androidx.appcompat.widget.AppCompatEditText>
+        </androidx.recyclerview.widget.RecyclerView>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editbutton"
-        android:onClick="dataTest"
-        app:layout_constraintTop_toBottomOf="@+id/edittext2">
-    </androidx.appcompat.widget.AppCompatButton>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/texttest"
-        app:layout_constraintTop_toBottomOf="@id/editbutton">
-    </androidx.appcompat.widget.AppCompatTextView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
