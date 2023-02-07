@@ -62,7 +62,7 @@ class HomeActivity : AppCompatActivity() {
     private fun populateHome() : ArrayList<HomeModel> {
         val list = ArrayList<HomeModel>()
 
-        val nameList = arrayOf(R.string.login, R.string.logout, R.string.e_mail_hint, R.string.password_hint, R.string.app_name)
+        val nameList = arrayOf(R.string.login, R.string.logout, R.string.e_mail_hint, R.string.password_hint, R.string.app_name, R.string.app_name, R.string.app_name, R.string.app_name, R.string.app_name)
 
         for (i in 0 .. nameList.size-1) {
             val model = HomeModel()
