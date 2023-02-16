@@ -18,11 +18,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var auth : FirebaseAuth
     private lateinit var user : FirebaseUser
+    private lateinit var db : FirebaseFirestore
 
     //private val Nutella = "https://world.openfoodfacts.org/api/v0/product/3017620422003.json"
 
@@ -40,13 +49,13 @@ class HomeActivity : AppCompatActivity() {
         val mainToolbar = findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(mainToolbar)
 
-        val modelArrayList = populateHome()
-        val recyclerView = findViewById<RecyclerView>(R.id.homeRecycler)
-        val layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
-        val adapter = HomeAdapter(modelArrayList)
-        recyclerView.adapter = adapter
+        db = FirebaseFirestore.getInstance()
 
+        db.collection("Recipe").get().addOnCompleteListener {
+            if (it.isSuccessful) {
+                 populateHome(it.result)
+            }
+        }
 
         /*
         Ion.with(this).load(Nutella).setHeader("User-Agent", "Gareth Wade")
@@ -59,19 +68,27 @@ class HomeActivity : AppCompatActivity() {
          */
     }
 
-    private fun populateHome() : ArrayList<HomeModel> {
+    private fun populateHome(collection : QuerySnapshot) {
         val list = ArrayList<HomeModel>()
+        val nameList = ArrayList<String>()
 
-        val nameList = arrayOf(R.string.login, R.string.logout, R.string.e_mail_hint, R.string.password_hint, R.string.app_name, R.string.app_name, R.string.app_name, R.string.app_name, R.string.app_name)
+        for (document in collection) {
+            nameList.add(document.get("name").toString())
+        }
 
         for (i in 0 .. nameList.size-1) {
             val model = HomeModel()
-            model.setName(getString(nameList[i]))
+            model.setName(nameList[i])
             list.add(model)
         }
 
         list.sortBy { list -> list.modelName}
-        return list
+
+        val recyclerView = findViewById<RecyclerView>(R.id.homeRecycler)
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+        val adapter = HomeAdapter(list)
+        recyclerView.adapter = adapter
     }
 
     /*
