@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
@@ -26,6 +27,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import androidx.fragment.app.Fragment
 
 class HomeActivity : AppCompatActivity() {
 
@@ -38,6 +40,18 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        val profileFragment = ProfileFragment()
+
+        setCurrentFragment(profileFragment)
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNavigationView.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.profileNav -> setCurrentFragment(profileFragment)
+            }
+            true
+        }
 
         auth = FirebaseAuth.getInstance()
         if (auth.currentUser == null) {
@@ -66,6 +80,14 @@ class HomeActivity : AppCompatActivity() {
                 Button.text = value
             }
          */
+    }
+
+    private fun setCurrentFragment(fragment : Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment,fragment)
+            Log.d("Success", "Success adding document")
+            commit()
+        }
     }
 
     private fun populateHome(collection : QuerySnapshot) {
