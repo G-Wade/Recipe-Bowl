@@ -12,51 +12,12 @@
         layout="@layout/toolbar">
     </include>
 
-    <com.google.android.material.tabs.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/tabs"
-        app:layout_constraintTop_toBottomOf="@+id/main_toolbar"
-        android:background="@color/tan_crayola"
-        app:tabPadding="2dp"
-        app:tabIndicatorColor="@color/seashell">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Latest">
-        </com.google.android.material.tabs.TabItem>
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Popular">
-        </com.google.android.material.tabs.TabItem>
-
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/homeLinearLayout"
-        android:layout_marginTop="96dp"
-        app:layout_constraintTop_toBottomOf="@+id/tabs">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/homeRecycler"
-            android:scrollbars="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/texttest">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
     <FrameLayout
         android:id="@+id/flFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -65,7 +26,6 @@
 
     <include
         layout="@layout/bottom_nav">
-
     </include>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
