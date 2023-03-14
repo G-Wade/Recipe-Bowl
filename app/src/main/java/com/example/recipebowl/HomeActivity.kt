@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var auth : FirebaseAuth
+    private lateinit var db : FirebaseFirestore
 
     //private val Nutella = "https://world.openfoodfacts.org/api/v0/product/3017620422003.json"
 
@@ -30,16 +31,41 @@ class HomeActivity : AppCompatActivity() {
             finish()
         }
 
-        val browseFragment = BrowseFragment()
-        val profileFragment = ProfileFragment()
+        db = FirebaseFirestore.getInstance()
+
+        db.collection("Recipe").get().addOnCompleteListener {
+            if (it.isSuccessful) {
+                populateHome(it.result)
+            }
+        }
 
         //setCurrentFragment(browseFragment)
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNavigationView.selectedItemId = R.id.browseNav
         bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId) {
-                //R.id.browseNav -> setCurrentFragment(browseFragment)
-                R.id.profileNav -> setCurrentFragment(profileFragment)
+                R.id.browseNav -> {
+                    val newIntent = Intent(this, HomeActivity::class.java)
+                    startActivity(newIntent)
+                    finish()
+                }
+                R.id.profileNav -> {
+                    val newIntent = Intent(this, ProfileActivity::class.java)
+                    startActivity(newIntent)
+                    finish()
+                }
+                R.id.settingsNav -> {
+                    val newIntent = Intent(this, SettingsActivity::class.java)
+                    startActivity(newIntent)
+                    finish()
+                }
+                R.id.logoutNav -> {
+                    auth.signOut()
+                    val newIntent = Intent(this, LoginActivity::class.java)
+                    startActivity(newIntent)
+                    finish()
+                }
             }
             true
         }
@@ -56,14 +82,6 @@ class HomeActivity : AppCompatActivity() {
                 Button.text = value
             }
          */
-    }
-
-    private fun setCurrentFragment(fragment : Fragment) {
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment,fragment)
-            Log.d("Success", "Success adding document")
-            commit()
-        }
     }
 
     private fun populateHome(collection : QuerySnapshot) {
