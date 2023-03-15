@@ -3,26 +3,33 @@ package com.example.recipebowl
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.widget.TextViewCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 
-class ProfileActivity : AppCompatActivity() {
+class MyPostsActivity : AppCompatActivity() {
 
     private lateinit var auth : FirebaseAuth
     private lateinit var db : FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        setContentView(R.layout.activity_my_posts)
 
-        auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
+        val uid = auth.uid
+
+        db.collection("Recipe").whereEqualTo("userUID", uid).get().addOnCompleteListener {
+            if (it.isSuccessful) {
+                populateMyPosts(it.result)
+            }
+        }
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
         bottomNavigationView.selectedItemId = R.id.profileNav
@@ -55,22 +62,28 @@ class ProfileActivity : AppCompatActivity() {
 
         val mainToolbar = findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(mainToolbar)
-
-        val username = findViewById<TextView>(R.id.username)
-        val docRef = db.collection("User").document(auth.uid.toString())
-        docRef.get().addOnSuccessListener { document ->
-            if (document != null) {
-                username.text = document.getString("username")
-            }
-        }
-
-        val myPostsBtn = findViewById<Button>(R.id.myPostsBtn)
-        myPostsBtn.setOnClickListener{v -> myPostsClick()}
     }
 
-    private fun myPostsClick() {
-        val newIntent = Intent(this, MyPostsActivity::class.java)
-        startActivity(newIntent)
-        finish()
+    private fun populateMyPosts(collection : QuerySnapshot) {
+        val list = ArrayList<HomeModel>()
+        val nameList = ArrayList<String>()
+
+        for (document in collection) {
+            nameList.add(document.get("name").toString())
+        }
+
+        for (i in 0 .. nameList.size-1) {
+            val model = HomeModel()
+            model.setName(nameList[i])
+            list.add(model)
+        }
+
+        list.sortBy { list -> list.modelName}
+
+        val recyclerView = findViewById<RecyclerView>(R.id.myPostsRecycler)
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+        val adapter = HomeAdapter(list)
+        recyclerView.adapter = adapter
     }
 }

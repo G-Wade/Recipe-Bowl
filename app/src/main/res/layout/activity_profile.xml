@@ -37,6 +37,21 @@
 
     </androidx.appcompat.widget.AppCompatTextView>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/myPostsBtn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/my_posts"
+        android:background="@color/orange_soda"
+        android:textColor="@color/white"
+        android:elevation="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/usernamePoint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
     <include
         layout="@layout/bottom_nav">
     </include>
