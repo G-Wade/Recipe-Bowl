@@ -3,6 +3,7 @@ package com.example.recipebowl
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -62,6 +63,15 @@ class MyPostsActivity : AppCompatActivity() {
 
         val mainToolbar = findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(mainToolbar)
+
+        val addPostBtn = findViewById<Button>(R.id.add_post_btn)
+        addPostBtn.setOnClickListener{v -> addPostClick()}
+    }
+
+    private fun addPostClick() {
+        val newIntent = Intent(this, AddPostActivity::class.java)
+        startActivity(newIntent)
+        finish()
     }
 
     private fun populateMyPosts(collection : QuerySnapshot) {
