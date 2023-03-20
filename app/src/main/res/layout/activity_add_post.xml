@@ -15,116 +15,114 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="56dp">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/main_toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="18pt"
+                android:hint="Title"
+                android:id="@+id/edit_title"
+                android:textStyle="bold"
+                android:maxWidth="200dp"
+                android:maxLines="2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            </androidx.appcompat.widget.AppCompatEditText>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/edit_image"
+                android:background="@drawable/ic_baseline_image_search_24"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp">
+
+            </androidx.appcompat.widget.AppCompatImageView>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_description"
+                android:hint="Description"
+                app:layout_constraintTop_toBottomOf="@+id/edit_image"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="8pt">
+
+            </androidx.appcompat.widget.AppCompatEditText>
+            
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ingredients_text"
+                app:layout_constraintTop_toBottomOf="@+id/edit_description"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Ingredients:"
+                android:textSize="6pt"
+                android:textStyle="bold">
+
+            </androidx.appcompat.widget.AppCompatTextView>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/ingredient_layout"
+                app:layout_constraintTop_toBottomOf="@id/ingredients_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/add_btn_layout"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_ingredient"
+                    android:textSize="6pt"
+                    android:hint="Ingredient">
+
+                </androidx.appcompat.widget.AppCompatEditText>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:id="@+id/add_btn_layout"
+                app:layout_constraintTop_toBottomOf="@id/ingredients_text"
+                app:layout_constraintStart_toEndOf="@id/ingredient_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:id="@+id/add_ingredient_btn"
+                    android:background="@drawable/ic_baseline_add_24"
+                    android:backgroundTint="@color/tan_crayola">
+
+                </androidx.appcompat.widget.AppCompatButton>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:textSize="18pt"
-        android:hint="Title"
-        android:id="@+id/edit_title"
-        android:textStyle="bold"
-        android:maxWidth="200dp"
-        android:maxLines="2"
-        app:layout_constraintTop_toBottomOf="@+id/main_toolbar"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </androidx.appcompat.widget.AppCompatEditText>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/edit_image"
-        android:background="@drawable/ic_baseline_image_search_24"
-        app:layout_constraintTop_toBottomOf="@+id/main_toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp">
-
-    </androidx.appcompat.widget.AppCompatImageView>
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/edit_description"
-        android:hint="Description"
-        app:layout_constraintTop_toBottomOf="@+id/edit_image"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:textSize="8pt">
-
-    </androidx.appcompat.widget.AppCompatEditText>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/edit_image1"
-        android:background="@drawable/ic_baseline_image_search_24"
-        app:layout_constraintTop_toBottomOf="@+id/edit_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp">
-
-    </androidx.appcompat.widget.AppCompatImageView>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/edit_image2"
-        android:background="@drawable/ic_baseline_image_search_24"
-        app:layout_constraintTop_toBottomOf="@+id/edit_image1"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp">
-
-    </androidx.appcompat.widget.AppCompatImageView>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/edit_image3"
-        android:background="@drawable/ic_baseline_image_search_24"
-        app:layout_constraintTop_toBottomOf="@+id/edit_image2"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp">
-
-    </androidx.appcompat.widget.AppCompatImageView>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/edit_image4"
-        android:background="@drawable/ic_baseline_image_search_24"
-        app:layout_constraintTop_toBottomOf="@+id/edit_image3"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp">
-
-    </androidx.appcompat.widget.AppCompatImageView>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/edit_image5"
-        android:background="@drawable/ic_baseline_image_search_24"
-        app:layout_constraintTop_toBottomOf="@+id/edit_image4"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp">
-
-    </androidx.appcompat.widget.AppCompatImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
