@@ -70,7 +70,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/edit_description"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="Ingredients:"
                 android:textSize="6pt"
                 android:textStyle="bold">
@@ -120,6 +120,45 @@
                 </androidx.appcompat.widget.AppCompatButton>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/instructions_text"
+                app:layout_constraintTop_toBottomOf="@+id/ingredient_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Instructions:"
+                android:textSize="6pt"
+                android:textStyle="bold">
+
+            </androidx.appcompat.widget.AppCompatTextView>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edit_instructions"
+                android:hint="Instructions"
+                app:layout_constraintTop_toBottomOf="@+id/instructions_text"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="6pt">
+
+            </androidx.appcompat.widget.AppCompatEditText>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/edit_instructions"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Post"
+                android:background="@color/tan_crayola"
+                android:layout_marginTop="30dp">
+
+            </androidx.appcompat.widget.AppCompatButton>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
