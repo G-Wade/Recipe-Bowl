@@ -89,7 +89,7 @@ class HomeActivity : AppCompatActivity() {
         val nameList = ArrayList<String>()
 
         for (document in collection) {
-            nameList.add(document.get("name").toString())
+            nameList.add(document.get("title").toString())
         }
 
         for (i in 0 .. nameList.size-1) {
