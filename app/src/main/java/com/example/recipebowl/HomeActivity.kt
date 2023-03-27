@@ -39,8 +39,6 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        //setCurrentFragment(browseFragment)
-
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
         bottomNavigationView.selectedItemId = R.id.browseNav
         bottomNavigationView.setOnItemSelectedListener {
@@ -106,27 +104,4 @@ class HomeActivity : AppCompatActivity() {
         val adapter = HomeAdapter(list)
         recyclerView.adapter = adapter
     }
-
-    /*
-    private fun dataTest() {
-        val dataText1 = findViewById<EditText>(R.id.edittext1)
-        val dataText2 = findViewById<EditText>(R.id.edittext2)
-        val value1 = dataText1.text.toString()
-        val value2 = dataText2.text.toString()
-
-        if (value1.isEmpty() || value2.isEmpty()) { return }
-
-        val map = hashMapOf("first" to value1, "second" to value2)
-
-        val docRef = FirebaseFirestore.getInstance().collection("Users")
-
-        docRef.add(map)
-            .addOnSuccessListener { documentReference ->
-                Log.d("Success", "Success adding document")
-            }
-            .addOnFailureListener { e ->
-                Log.w("Failure", "Error adding document", e)
-            }
-    }
-     */
 }

@@ -19,5 +19,6 @@
     <string name="username_hint">Username</string>
     <string name="username_point">Username:</string>
     <string name="my_posts">My Posts</string>
+    <string name="off_link"><a href="https://world.openfoodfacts.org/">Open Food Facts</a></string>
 
 </resources>

@@ -2,6 +2,7 @@ package com.example.recipebowl
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
@@ -12,6 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.marginTop
 import androidx.core.view.setMargins
 import androidx.core.view.updateMargins
+import androidx.core.widget.TextViewCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -23,6 +25,7 @@ class AddPostActivity : AppCompatActivity() {
     private lateinit var removeBtn : Button
     private lateinit var ingredientLayout : LinearLayoutCompat
     private lateinit var removeIngredientLayout : LinearLayoutCompat
+    private lateinit var linkText : TextView
 
     private lateinit var auth : FirebaseAuth
     private lateinit var db : FirebaseFirestore
@@ -47,6 +50,9 @@ class AddPostActivity : AppCompatActivity() {
 
         finishBtn = findViewById<Button>(R.id.finish_post_btn)
         finishBtn.setOnClickListener{postRecipe(ingredients)}
+
+        linkText = findViewById<TextView>(R.id.OFF_text)
+        linkText.movementMethod = LinkMovementMethod.getInstance()
     }
 
     private fun postRecipe(ingredients: ArrayDeque<EditText>) {
