@@ -2,18 +2,15 @@ package com.example.recipebowl
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.firestore.FirebaseFirestore
-import android.util.Log
-import android.widget.Toast
-import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.QuerySnapshot
-import androidx.fragment.app.Fragment
 
 class HomeActivity : AppCompatActivity() {
 
@@ -94,8 +91,6 @@ class HomeActivity : AppCompatActivity() {
             list.add(model)
         }
 
-        list.sortBy { list -> list.modelName}
-
         val recyclerView = findViewById<RecyclerView>(R.id.homeRecycler)
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
@@ -103,7 +98,8 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         adapter.onItemClick = {
-            val newIntent = Intent(this, ProfileActivity::class.java)
+            val newIntent = Intent(this, ViewPostActivity::class.java)
+            newIntent.putExtra("info", it.getID())
             startActivity(newIntent)
             finish()
         }

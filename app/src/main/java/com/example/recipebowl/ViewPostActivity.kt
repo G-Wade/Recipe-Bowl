@@ -2,13 +2,17 @@ package com.example.recipebowl
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.appcompat.widget.Toolbar
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ViewPostActivity : AppCompatActivity() {
@@ -17,6 +21,7 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var image : ImageView
     private lateinit var description : TextView
     private lateinit var instructions : TextView
+    private lateinit var ingredientLayout : LinearLayoutCompat
 
     private lateinit var auth : FirebaseAuth
     private lateinit var db : FirebaseFirestore
@@ -57,10 +62,36 @@ class ViewPostActivity : AppCompatActivity() {
         val mainToolbar = findViewById<Toolbar>(R.id.main_toolbar)
         setSupportActionBar(mainToolbar)
 
-        populatePost()
+        db = FirebaseFirestore.getInstance()
+
+        val info = intent.getStringExtra("info")
+        if (info != null) {
+            db.collection("Recipe").document(info).get().addOnCompleteListener {
+                populatePost(it)
+            }
+        }
     }
 
-    private fun populatePost() {
+    private fun populatePost(document : Task<DocumentSnapshot>) {
+        val docRef = document.result
 
+        title = findViewById(R.id.title)
+        title.text = docRef.get("title").toString()
+        description = findViewById(R.id.description)
+        description.text = docRef.get("description").toString()
+
+        ingredientLayout = findViewById(R.id.ingredient_layout)
+        val ingredients = docRef.get("ingredients")
+
+        for (ingredient in ingredients as ArrayList<String>) {
+            var value = TextView(this)
+            value.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 80)
+            value.setTextSize(14F)
+            value.setText(ingredient)
+            ingredientLayout.addView(value)
+        }
+
+        instructions = findViewById(R.id.instructions)
+        instructions.text = docRef.get("instructions").toString()
     }
 }

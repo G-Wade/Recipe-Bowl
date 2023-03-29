@@ -12,7 +12,12 @@ class HomeModel {
         this.modelName = name
     }
 
+    fun getID() : String {
+        return modelID.toString()
+    }
+
     fun setID(id: String) {
         this.modelID = id
     }
 }
+

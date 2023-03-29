@@ -1,17 +1,13 @@
 package com.example.recipebowl
 
-import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
-class HomeAdapter (private val modelArrayList : MutableList<HomeModel>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(private val modelArrayList: ArrayList<HomeModel>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     var onItemClick : ((HomeModel) -> Unit)? = null
 

@@ -2,7 +2,6 @@ package com.example.recipebowl
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -76,19 +75,13 @@ class MyPostsActivity : AppCompatActivity() {
 
     private fun populateMyPosts(collection : QuerySnapshot) {
         val list = ArrayList<HomeModel>()
-        val nameList = ArrayList<String>()
 
         for (document in collection) {
-            nameList.add(document.get("title").toString())
-        }
-
-        for (i in 0 .. nameList.size-1) {
             val model = HomeModel()
-            model.setName(nameList[i])
+            model.setName(document.get("title").toString())
+            model.setID(document.id)
             list.add(model)
         }
-
-        list.sortBy { list -> list.modelName}
 
         val recyclerView = findViewById<RecyclerView>(R.id.myPostsRecycler)
         val layoutManager = LinearLayoutManager(this)
