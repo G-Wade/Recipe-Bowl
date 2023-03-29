@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.firestore.FirebaseFirestore
 import android.util.Log
+import android.widget.Toast
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -84,15 +86,11 @@ class HomeActivity : AppCompatActivity() {
 
     private fun populateHome(collection : QuerySnapshot) {
         val list = ArrayList<HomeModel>()
-        val nameList = ArrayList<String>()
 
         for (document in collection) {
-            nameList.add(document.get("title").toString())
-        }
-
-        for (i in 0 .. nameList.size-1) {
             val model = HomeModel()
-            model.setName(nameList[i])
+            model.setName(document.get("title").toString())
+            model.setID(document.id)
             list.add(model)
         }
 
@@ -103,5 +101,11 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
         val adapter = HomeAdapter(list)
         recyclerView.adapter = adapter
+
+        adapter.onItemClick = {
+            val newIntent = Intent(this, ProfileActivity::class.java)
+            startActivity(newIntent)
+            finish()
+        }
     }
 }
