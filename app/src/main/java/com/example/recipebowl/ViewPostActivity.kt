@@ -14,6 +14,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.koushikdutta.ion.Ion
+import org.json.JSONObject
 
 class ViewPostActivity : AppCompatActivity() {
 
@@ -87,7 +89,22 @@ class ViewPostActivity : AppCompatActivity() {
             var value = TextView(this)
             value.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 80)
             value.setTextSize(14F)
-            value.setText(ingredient)
+
+            Ion.with(this).load("https://world.openfoodfacts.org/api/v0/product/" + ingredient + ".json")
+                .setHeader("User-Agent", "Gareth Wade").setHeader("Accept", "application/JSON").asString()
+                .setCallback { _, result ->
+                    val jsonObj = JSONObject(result)
+                    val status = jsonObj.getString("status")
+
+                    if (status.equals("1")) {
+                        val product = jsonObj.getJSONObject("product")
+                        val id = product.getString("product_name")
+                        value.setText(id)
+                    } else {
+                        value.setText(ingredient)
+                    }
+                }
+
             ingredientLayout.addView(value)
         }
 

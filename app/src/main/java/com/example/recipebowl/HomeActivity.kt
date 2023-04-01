@@ -17,8 +17,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
     private lateinit var db : FirebaseFirestore
 
-    //private val Nutella = "https://world.openfoodfacts.org/api/v0/product/3017620422003.json"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
