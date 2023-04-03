@@ -87,8 +87,12 @@ class ViewPostActivity : AppCompatActivity() {
 
         for (ingredient in ingredients as ArrayList<String>) {
             var value = TextView(this)
-            value.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 80)
+            value.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 50)
             value.setTextSize(14F)
+
+            var nutrients = TextView(this)
+            nutrients.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            nutrients.setTextSize(12F)
 
             Ion.with(this).load("https://world.openfoodfacts.org/api/v0/product/" + ingredient + ".json")
                 .setHeader("User-Agent", "Gareth Wade").setHeader("Accept", "application/JSON").asString()
@@ -100,12 +104,27 @@ class ViewPostActivity : AppCompatActivity() {
                         val product = jsonObj.getJSONObject("product")
                         val id = product.getString("product_name")
                         value.setText(id)
+
+                        val nutriments = product.getJSONObject("nutriments")
+                        var nValues = ""
+                        nValues += ("carbohydrates in g: " + nutriments.getString("carbohydrates")
+                                + "    calories in kcal: " + nutriments.getString("energy-kcal")
+                                + "    fat in g: " + nutriments.getString("fat")
+                                + "    saturated fat in g: " + nutriments.getString("saturated-fat")
+                                + "    proteins in g: " + nutriments.getString("proteins")
+                                + "    salt in g: " + nutriments.getString("salt")
+                                + "    sodium in g: " + nutriments.getString("sodium")
+                                + "    sugars in g: " + nutriments.getString("sugars"))
+                        nutrients.setText(nValues)
+
                     } else {
                         value.setText(ingredient)
+                        nutrients.setText("No nutritional information found.")
                     }
                 }
 
             ingredientLayout.addView(value)
+            ingredientLayout.addView(nutrients)
         }
 
         instructions = findViewById(R.id.instructions)
