@@ -107,14 +107,52 @@ class ViewPostActivity : AppCompatActivity() {
 
                         val nutriments = product.getJSONObject("nutriments")
                         var nValues = ""
-                        nValues += ("carbohydrates in g: " + nutriments.getString("carbohydrates")
-                                + "    calories in kcal: " + nutriments.getString("energy-kcal")
-                                + "    fat in g: " + nutriments.getString("fat")
-                                + "    saturated fat in g: " + nutriments.getString("saturated-fat")
-                                + "    proteins in g: " + nutriments.getString("proteins")
-                                + "    salt in g: " + nutriments.getString("salt")
-                                + "    sodium in g: " + nutriments.getString("sodium")
-                                + "    sugars in g: " + nutriments.getString("sugars"))
+
+                        val carbohydrates = nutriments.optString("carbohydrates")
+                        if (carbohydrates != "") {
+                            nValues += "carbohydrates in g: " + carbohydrates + "    "
+                        }
+
+                        val calories = nutriments.optString("energy-kcal")
+                        if (calories != "") {
+                            nValues += "calories in kcal: " + calories + "    "
+                        }
+
+                        val fat = nutriments.optString("fat")
+                        if (fat != "") {
+                            nValues += "fat in g: " + fat + "    "
+                        }
+
+                        val saturatedFat = nutriments.optString("saturated-fat")
+                        if (saturatedFat != "") {
+                            nValues += "saturated fat in g: " + saturatedFat + "    "
+                        }
+
+                        val fiber = nutriments.optString("fiber")
+                        if (fiber != "") {
+                            nValues += "fiber in g: " + fiber + "    "
+                        }
+
+                        val proteins = nutriments.optString("proteins")
+                        if (proteins != "") {
+                            nValues += "proteins in g: " + proteins + "    "
+                        }
+
+                        val salt = nutriments.optString("salt")
+                        if (salt != "") {
+                            nValues += "salt in g: " + salt + "    "
+                        }
+
+                        val sodium = nutriments.optString("sodium")
+                        if (sodium != "") {
+                            nValues += "sodium in g: " + sodium + "    "
+                        }
+
+                        val sugars = nutriments.optString("sugars")
+                        if (sugars != "") {
+                            nValues += "sugars in g: " + sugars + "    "
+                        }
+
                         nutrients.setText(nValues)
 
                     } else {
@@ -126,6 +164,13 @@ class ViewPostActivity : AppCompatActivity() {
             ingredientLayout.addView(value)
             ingredientLayout.addView(nutrients)
         }
+
+        var notice = TextView(this)
+        notice.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        notice.setTextSize(12F)
+        notice.setText("\n" + "All values given a per 100g and any missing values are due to a lack of data on the product")
+
+        ingredientLayout.addView(notice)
 
         instructions = findViewById(R.id.instructions)
         instructions.text = docRef.get("instructions").toString()
