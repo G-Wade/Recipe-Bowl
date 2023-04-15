@@ -23,6 +23,7 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var image : ImageView
     private lateinit var description : TextView
     private lateinit var instructions : TextView
+    private lateinit var nutritions : TextView
     private lateinit var ingredientLayout : LinearLayoutCompat
 
     private lateinit var auth : FirebaseAuth
@@ -84,6 +85,11 @@ class ViewPostActivity : AppCompatActivity() {
 
         ingredientLayout = findViewById(R.id.ingredient_layout)
         val ingredients = docRef.get("ingredients")
+
+        nutritions = findViewById(R.id.nutritions)
+        var allergenText = "Allergens:\n"
+
+        val mutableList = mutableListOf<String>()
 
         for (ingredient in ingredients as ArrayList<String>) {
             var value = TextView(this)
@@ -155,6 +161,12 @@ class ViewPostActivity : AppCompatActivity() {
 
                         nutrients.setText(nValues)
 
+                        val allergenList = product.getJSONArray("allergens_tags")
+                        for (i in 0 .. allergenList.length()-1) {
+                            allergenText += allergenList[i].toString() + "\n"
+                            nutritions.text = allergenText
+                        }
+
                     } else {
                         value.setText(ingredient)
                         nutrients.setText("No nutritional information found.")
@@ -165,6 +177,18 @@ class ViewPostActivity : AppCompatActivity() {
             ingredientLayout.addView(nutrients)
         }
 
+        /*
+        for (i in 0 .. mutableList.size) {
+            for (j in i+1 .. mutableList.size) {
+                if (mutableList.get(i) == mutableList.get(j)) {
+                    mutableList.removeAt(j)
+                }
+            }
+
+            allergenText += mutableList.get(i) + "\n"
+        }
+         */
+
         var notice = TextView(this)
         notice.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         notice.setTextSize(12F)
@@ -174,5 +198,6 @@ class ViewPostActivity : AppCompatActivity() {
 
         instructions = findViewById(R.id.instructions)
         instructions.text = docRef.get("instructions").toString()
+
     }
 }
